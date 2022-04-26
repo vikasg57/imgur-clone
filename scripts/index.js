@@ -3,11 +3,18 @@ let container=document.querySelector(".container");
 
 let imagecontainer=document.querySelector(".imagecontainer")
 
+let page=1
+
+
+
+
+
+// const search=htps://api.unsplash.com/search/photos?client_id=FDgylyMcUiAcBSxkoTyZoT1Fa6dfKX94t733azJTE64&page=1&query=politics
 
 
 const getdata=async ()=>{
 
-    // let response=await fetch("htps://api.unsplash.com/search/photos?client_id=FDgylyMcUiAcBSxkoTyZoT1Fa6dfKX94t733azJTE64&page=1&query=politics",{
+    // let response=await fetch(`https://api.unsplash.com/photos?page=${page}&client_id=FDgylyMcUiAcBSxkoTyZoT1Fa6dfKX94t733azJTE64&per_page=20`,{
 
     // method: "GET",
         
@@ -20,12 +27,17 @@ const getdata=async ()=>{
 
     // response=await response.json();
 
-    // localStorage.setItem("data", JSON.stringify(response))
-    let data=JSON.parse(localStorage.getItem("data"))
+    // console.log(response)
 
-    let imagearray=data.results
+    //  localStorage.setItem("data", JSON.stringify(response))
+     let data=JSON.parse(localStorage.getItem("data"))
 
-    mapdata(imagearray)
+   
+
+    
+    //  console.log(data)
+
+     mapdata(data)
 
 }
 
@@ -71,13 +83,22 @@ function mapdata(data){
         eye.className="fa-solid fa-eye"
 
 
+
+
         arrowup.addEventListener("click",()=>{
 
              arrowup.style.color=="green"? arrowup.style.color="white": arrowup.style.color="green"
 
-             likes.innerHTML=el.likes+1
+             el.likes=el.likes+1
+             
+
+             likes.innerHTML=el.likes
+
+
                         
         })
+
+
         //   arrowup.addEventListener("doubleclick",()=>{
 
         //     arrowup.style.color="white"
@@ -87,6 +108,9 @@ function mapdata(data){
           arrowdown.addEventListener("click",()=>{
 
              arrowdown.style.color=="red"? arrowdown.style.color="white": arrowdown.style.color="red"
+
+             
+
              likes.innerHTML=el.likes-1
                         
         })
@@ -100,7 +124,10 @@ function mapdata(data){
 
         let title=document.createElement("p")
 
-        title.innerHTML=el.alt_description
+        let text=el.alt_description==null?"if coke snot were a person":el.alt_description
+        title.innerHTML=text
+
+
 
         let likes=document.createElement("p")
 
@@ -152,3 +179,25 @@ function mapdata(data){
     })
 
 }
+
+const getpage=()=>{
+    setTimeout(() => {
+        page++
+        getdata()
+
+        
+    }, 500);
+}
+
+window.addEventListener('scroll',()=>{
+    const {scrollHeight,scrollTop,clientHeight}=document.documentElement
+
+    console.log(scrollTop+clientHeight, scrollHeight)
+    if((scrollTop+clientHeight)+50>=scrollHeight){
+        getpage()
+        
+      
+    }
+
+    
+})
