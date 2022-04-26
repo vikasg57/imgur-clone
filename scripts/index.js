@@ -3,11 +3,6 @@ let container=document.querySelector(".container");
 
 let imagecontainer=document.querySelector(".imagecontainer")
 
-let h1=document.createElement("h1");
-
-h1.textContent="Vikas Gaikwad"
-
-container.appendChild(h1);
 
 
 const getdata=async ()=>{
@@ -63,6 +58,40 @@ function mapdata(data){
         let img=document.createElement("img")
         img.src=regular
 
+        let arrowup=document.createElement("i")
+        arrowup.className="fa-solid fa-arrow-up"
+
+         let arrowdown=document.createElement("i")
+        arrowdown.className="fa-solid fa-arrow-down"
+
+        let comment=document.createElement("i")
+        comment.className="fa-solid fa-message"
+
+        let eye=document.createElement("i")
+        eye.className="fa-solid fa-eye"
+
+
+        arrowup.addEventListener("click",()=>{
+
+             arrowup.style.color=="green"? arrowup.style.color="white": arrowup.style.color="green"
+
+             likes.innerHTML=el.likes+1
+                        
+        })
+        //   arrowup.addEventListener("doubleclick",()=>{
+
+        //     arrowup.style.color="white"
+
+        // })
+
+          arrowdown.addEventListener("click",()=>{
+
+             arrowdown.style.color=="red"? arrowdown.style.color="white": arrowdown.style.color="red"
+             likes.innerHTML=el.likes-1
+                        
+        })
+
+
         //infodiv childs
         let infodiv_child=document.createElement("div")
         infodiv_child.className="infodiv_child1"
@@ -101,7 +130,7 @@ function mapdata(data){
 
         infodiv_child.append(title)
 
-        infodiv_child2.append(likes,dislikes,views)
+        infodiv_child2.append(arrowup,likes,arrowdown,comment,dislikes,eye,views)
 
         
 
