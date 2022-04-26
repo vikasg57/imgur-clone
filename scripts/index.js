@@ -6,44 +6,87 @@ let imagecontainer=document.querySelector(".imagecontainer")
 let page=1
 
 
+const dataurl=`https://api.unsplash.com/photos?page=${page}&client_id=FDgylyMcUiAcBSxkoTyZoT1Fa6dfKX94t733azJTE64&per_page=20`
 
 
+const getdata=async (url)=>{
 
-// const search=htps://api.unsplash.com/search/photos?client_id=FDgylyMcUiAcBSxkoTyZoT1Fa6dfKX94t733azJTE64&page=1&query=politics
+    let response=await fetch(url,{
 
-
-const getdata=async ()=>{
-
-    // let response=await fetch(`https://api.unsplash.com/photos?page=${page}&client_id=FDgylyMcUiAcBSxkoTyZoT1Fa6dfKX94t733azJTE64&per_page=20`,{
-
-    // method: "GET",
+    method: "GET",
         
-    // headers:{
+    headers:{
 
-    //     //  'Content-Type': 'application/json',
-    //     'client_id':"FDgylyMcUiAcBSxkoTyZoT1Fa6dfKX94t733azJTE64"
+        'Content-Type': 'application/json',
+        'client_id':"FDgylyMcUiAcBSxkoTyZoT1Fa6dfKX94t733azJTE64"
 
-    // }})
+    }})
 
-    // response=await response.json();
+    response=await response.json();
 
-    // console.log(response)
+    response.length==20?mapdata(response):mapdata(response.results)
+
+
+    console.log(response)
 
     //  localStorage.setItem("data", JSON.stringify(response))
-     let data=JSON.parse(localStorage.getItem("data"))
-
-   
-
+    //  let data=JSON.parse(localStorage.getItem("data"))
     
     //  console.log(data)
-
-     mapdata(data)
+    //  mapdata(response)
 
 }
 
-getdata()
+ getdata(dataurl)
+
+
+
+
+
+
+let input_box=document.querySelector("#input_box")
+
+  let query
+
+input_box.addEventListener("input",()=>{
+    
+    query=input_box.value
+    
+    console.log(query)
+    // var search=`https://api.unsplash.com/search/photos?client_id=FDgylyMcUiAcBSxkoTyZoT1Fa6dfKX94t733azJTE64&page=1&query=${query}`
+    debounce(getdata,1000)
+    
+    
+})
+
+
+
+let searchdata;
+
+ function debounce(fu,delay){
+
+     
+        if(searchdata){
+            console.log(searchdata)
+            clearTimeout(searchdata)
+        }
+
+       searchdata=setTimeout(function(){
+
+
+          fu(`https://api.unsplash.com/search/photos?client_id=FDgylyMcUiAcBSxkoTyZoT1Fa6dfKX94t733azJTE64&page=1&query=${query}`)
+
+        },delay)
+
+
+       
+            
+    }
+
 
 function mapdata(data){
+
+    imagecontainer.innerHTML=null
 
     data.map((el)=>{
 
