@@ -6,34 +6,34 @@ let imagecontainer=document.querySelector(".imagecontainer")
 let page=1
 
 
-const dataurl=`https://api.unsplash.com/photos?page=${page}&client_id=FDgylyMcUiAcBSxkoTyZoT1Fa6dfKX94t733azJTE64&per_page=20`
+ const dataurl=`https://api.unsplash.com/photos?page=${page}&client_id=FDgylyMcUiAcBSxkoTyZoT1Fa6dfKX94t733azJTE64&per_page=20`
 
 
 const getdata=async (url)=>{
 
-    let response=await fetch(url,{
+//     let response=await fetch(url,{
 
-    method: "GET",
+//     method: "GET",
         
-    headers:{
+//     headers:{
 
-        'Content-Type': 'application/json',
-        'client_id':"FDgylyMcUiAcBSxkoTyZoT1Fa6dfKX94t733azJTE64"
+//         'Content-Type': 'application/json',
+//         'client_id':"FDgylyMcUiAcBSxkoTyZoT1Fa6dfKX94t733azJTE64"
 
-    }})
+//     }})
 
-    response=await response.json();
+//     response=await response.json();
 
-    response.length==20?mapdata(response):mapdata(response.results)
+//     response.length==20?mapdata(response):mapdata(response.results)
 
 
-    console.log(response)
+//     console.log(response)
 
     //  localStorage.setItem("data", JSON.stringify(response))
-    //  let data=JSON.parse(localStorage.getItem("data"))
+      let data=JSON.parse(localStorage.getItem("data"))
     
-    //  console.log(data)
-    //  mapdata(response)
+     console.log(data)
+     mapdata(data)
 
 }
 
