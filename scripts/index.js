@@ -3,7 +3,9 @@ let container=document.querySelector(".container");
 
 let imagecontainer=document.querySelector(".imagecontainer")
 
-let page=1
+let searchcontainer=document.querySelector(".searchcontainer")
+
+var page=1
 
 
  const dataurl=`https://api.unsplash.com/photos?page=${page}&client_id=FDgylyMcUiAcBSxkoTyZoT1Fa6dfKX94t733azJTE64&per_page=20`
@@ -11,29 +13,34 @@ let page=1
 
 const getdata=async (url)=>{
 
-//     let response=await fetch(url,{
+    let response=await fetch(url,{
 
-//     method: "GET",
+    method: "GET",
         
-//     headers:{
+    headers:{
 
-//         'Content-Type': 'application/json',
-//         'client_id':"FDgylyMcUiAcBSxkoTyZoT1Fa6dfKX94t733azJTE64"
+        'Content-Type': 'application/json',
+        'client_id':"FDgylyMcUiAcBSxkoTyZoT1Fa6dfKX94t733azJTE64"
 
-//     }})
+    }})
 
-//     response=await response.json();
+    response=await response.json();
 
-//     response.length==20?mapdata(response):mapdata(response.results)
+    response.length==20?mapdata(imagecontainer,response):mapdata(searchcontainer,response.results)
 
 
-//     console.log(response)
+    console.log(response)
 
     //  localStorage.setItem("data", JSON.stringify(response))
-      let data=JSON.parse(localStorage.getItem("data"))
+
+
+    // let data=JSON.parse(localStorage.getItem("data"))
     
-     console.log(data)
-     mapdata(data)
+    // console.log("vikas",data)
+
+    // console.log(data)
+
+    // mapdata(imagecontainer,data)
 
 }
 
@@ -84,9 +91,16 @@ let searchdata;
     }
 
 
-function mapdata(data){
+function mapdata(location,data){
 
-    imagecontainer.innerHTML=null
+    if(location==searchcontainer){
+
+        imagecontainer.innerHTML=null
+
+    }
+
+    console.log(data)
+
 
     data.map((el)=>{
 
@@ -208,7 +222,7 @@ function mapdata(data){
         infodiv.append(infodiv_child,infodiv_child2)
         imgdiv.append(img)
         childdiv.append(imgdiv,infodiv)
-        imagecontainer.append(childdiv)
+        location.append(childdiv)
 
 
         
@@ -225,8 +239,8 @@ function mapdata(data){
 
 const getpage=()=>{
     setTimeout(() => {
-        page++
-        getdata()
+         page++
+        getdata(`https://api.unsplash.com/photos?page=${page}&client_id=FDgylyMcUiAcBSxkoTyZoT1Fa6dfKX94t733azJTE64&per_page=20`)
 
         
     }, 500);
@@ -238,6 +252,7 @@ window.addEventListener('scroll',()=>{
     console.log(scrollTop+clientHeight, scrollHeight)
     if((scrollTop+clientHeight)+50>=scrollHeight){
         getpage()
+          page++
         
       
     }
