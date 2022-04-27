@@ -4,8 +4,8 @@
 }
 body{
     background-color:#2e3035;
-        /* margin: 0;
-    box-sizing: border-box; */
+     margin: 0;
+    box-sizing: border-box; 
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     
 }
@@ -88,4 +88,10 @@ body{
 
     color:white;
     font-weight: bold;
+}
+
+/* navbar styling */
+
+.nav_lastchild>i{
+    color:white;
 }
